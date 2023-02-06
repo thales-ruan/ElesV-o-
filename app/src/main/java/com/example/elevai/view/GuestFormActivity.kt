@@ -13,7 +13,7 @@ import com.example.elevai.viewmodel.GuestFormViewModel
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivityGuestFormBinding
-    private lateinit var viewModel : ViewModel
+    private lateinit var viewModel : GuestFormViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +27,13 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if(v.id == R.id.buttonSave){
+            val name = binding.editTextName.text.toString()
+            val presence = binding.radioPresente.isChecked
 
-         //   GuestModel(10,"x",false)
+             val model = GuestModel(0,name,presence)
+
+            viewModel.insert(model)
         }
     }
 }
+
