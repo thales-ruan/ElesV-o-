@@ -1,4 +1,4 @@
-package com.example.elevai
+package com.example.elevai.repository
 
 class GuestRepository {
 
@@ -6,7 +6,7 @@ class GuestRepository {
         private lateinit var repository: GuestRepository
 
         fun getInstance(): GuestRepository {
-            if (!::repository.isInitialized) {
+            if (!Companion::repository.isInitialized) {
                 repository = GuestRepository()
             }
             return repository

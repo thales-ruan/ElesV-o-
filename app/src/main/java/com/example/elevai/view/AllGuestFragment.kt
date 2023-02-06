@@ -1,4 +1,4 @@
-package com.example.elevai.ui
+package com.example.elevai.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.elevai.databinding.FragmentAllGuestsBinding
+import com.example.elevai.viewmodel.AllGuestViewModel
 
 
 class AllGuestFragment : Fragment() {

@@ -1,12 +1,13 @@
-package com.example.elevai
+package com.example.elevai.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import com.example.elevai.R
 import com.example.elevai.databinding.ActivityGuestFormBinding
+import com.example.elevai.viewmodel.GuestFormViewModel
 
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
