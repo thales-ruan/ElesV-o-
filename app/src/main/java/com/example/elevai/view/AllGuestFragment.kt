@@ -1,5 +1,6 @@
 package com.example.elevai.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.elevai.contantes.DataBaseConstantes
 import com.example.elevai.databinding.FragmentAllGuestsBinding
 import com.example.elevai.view.adapter.GuestAdapter
 import com.example.elevai.view.listener.OnGuestListener
@@ -37,22 +39,30 @@ class AllGuestFragment : Fragment() {
 
         val listener = object : OnGuestListener{
             override fun onClick(id: Int) {
-                Toast.makeText(context, "click"+id, Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, GuestFormActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt(DataBaseConstantes.GUEST.ID,id)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
 
             override fun onDelete(id: Int) {
-                Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
                 viewModel.delete(id)
                 viewModel.getAll()
             }
         }
         adapter.attachListener(listener)
 
-        viewModel.getAll()
+
 
         observes()
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAll()
     }
 
     override fun onDestroyView() {

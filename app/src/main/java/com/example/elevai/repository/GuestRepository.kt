@@ -47,7 +47,7 @@ class GuestRepository private constructor(context: Context) {
             values.put(DataBaseConstantes.GUEST.COLUMNS.PRESENCE, presence)
 
 
-            val selection = DataBaseConstantes.GUEST.COLUMNS.ID + "id = ?"
+            val selection = DataBaseConstantes.GUEST.COLUMNS.ID + " = ?"
             val args = arrayOf(guest.id.toString())
 
             db.update(DataBaseConstantes.GUEST.TABLE_NAME, values, selection, args)
@@ -108,6 +108,47 @@ class GuestRepository private constructor(context: Context) {
             return list
         }
         return list
+
+    }
+
+    fun get(id: Int): GuestModel? {
+        var guest : GuestModel? = null
+
+        try {
+
+            val db = guestDataBase.readableDatabase
+
+            val projection = arrayOf(
+                DataBaseConstantes.GUEST.COLUMNS.ID,
+                DataBaseConstantes.GUEST.COLUMNS.NAME,
+                DataBaseConstantes.GUEST.COLUMNS.PRESENCE
+            )
+
+            val selection = DataBaseConstantes.GUEST.COLUMNS.ID + " = ?"
+            val args = arrayOf(id.toString())
+
+            val cursor = db.query(
+                DataBaseConstantes.GUEST.TABLE_NAME, projection, selection,
+                args, null, null, null
+            )
+
+            if (cursor != null && cursor.count > 0) {
+                while (cursor.moveToNext()) {
+
+                    val name =
+                        cursor.getString(cursor.getColumnIndex(DataBaseConstantes.GUEST.COLUMNS.NAME))
+                    val presence =
+                        cursor.getInt(cursor.getColumnIndex(DataBaseConstantes.GUEST.COLUMNS.PRESENCE))
+
+                    guest = GuestModel(id, name, presence == 1)
+                }
+            }
+            cursor.close()
+
+        } catch (e: java.lang.Exception) {
+            return guest
+        }
+        return guest
 
     }
 

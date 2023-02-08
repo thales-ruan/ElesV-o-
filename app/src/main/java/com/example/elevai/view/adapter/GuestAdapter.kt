@@ -1,8 +1,10 @@
 package com.example.elevai.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elevai.databinding.AdapterAllGuestBinding
 import com.example.elevai.model.GuestModel
@@ -16,7 +18,7 @@ class GuestAdapter : RecyclerView.Adapter<GuestAdapter.GuestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuestViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = AdapterAllGuestBinding.inflate(layoutInflater, parent, false)
-        return GuestViewHolder(binding,listener)
+        return GuestViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: GuestViewHolder, position: Int) {
@@ -33,11 +35,14 @@ class GuestAdapter : RecyclerView.Adapter<GuestAdapter.GuestViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun attachListener(guestListener: OnGuestListener){
+    fun attachListener(guestListener: OnGuestListener) {
         listener = guestListener
     }
 
-    class GuestViewHolder(private val binding: AdapterAllGuestBinding, private val listener: OnGuestListener) :
+    class GuestViewHolder(
+        private val binding: AdapterAllGuestBinding,
+        private val listener: OnGuestListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(guest: GuestModel) {
             binding.textNome.text = guest.name
@@ -48,7 +53,18 @@ class GuestAdapter : RecyclerView.Adapter<GuestAdapter.GuestViewHolder>() {
             }
 
             binding.imageDelete.setOnClickListener {
-                listener.onDelete(guest.id)
+
+                AlertDialog.Builder(itemView.context)
+                    .setTitle("Remover Convidado")
+                    .setMessage("Tem certeza que deseja remover")
+                    .setPositiveButton(
+                        "Sim"
+                    ) { dialog, which ->
+                        listener.onDelete(guest.id)
+                    }
+                    .setNegativeButton("Não", null)
+                    .create()
+                    .show()
             }
 
         }
