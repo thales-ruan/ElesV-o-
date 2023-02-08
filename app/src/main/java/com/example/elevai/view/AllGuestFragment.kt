@@ -53,8 +53,6 @@ class AllGuestFragment : Fragment() {
         }
         adapter.attachListener(listener)
 
-
-
         observes()
 
         return root
