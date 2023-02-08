@@ -47,6 +47,10 @@ class GuestAdapter : RecyclerView.Adapter<GuestAdapter.GuestViewHolder>() {
                 listener.onClick(guest.id)
             }
 
+            binding.imageDelete.setOnClickListener {
+                listener.onDelete(guest.id)
+            }
+
         }
     }
 

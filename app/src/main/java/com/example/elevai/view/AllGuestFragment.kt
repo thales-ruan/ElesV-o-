@@ -41,7 +41,9 @@ class AllGuestFragment : Fragment() {
             }
 
             override fun onDelete(id: Int) {
-
+                Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
+                viewModel.delete(id)
+                viewModel.getAll()
             }
         }
         adapter.attachListener(listener)
