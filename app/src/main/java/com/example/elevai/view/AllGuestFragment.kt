@@ -14,26 +14,23 @@ import com.example.elevai.viewmodel.AllGuestViewModel
 class AllGuestFragment : Fragment() {
 
     private var _binding: FragmentAllGuestsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var viewModel: AllGuestViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel =
-            ViewModelProvider(this).get(AllGuestViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AllGuestViewModel::class.java)
 
         _binding = FragmentAllGuestsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        viewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        viewModel.getAll()
+
+        observes()
+
         return root
     }
 
@@ -41,4 +38,11 @@ class AllGuestFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun observes() {
+        viewModel.guests.observe(viewLifecycleOwner) {
+            val s = ""
+        }
+    }
+
 }
