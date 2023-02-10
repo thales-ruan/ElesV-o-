@@ -73,4 +73,5 @@ class PresentFragment : Fragment() {
             adapter.updateGuest(it)
         }
     }
+    //todo
 }
