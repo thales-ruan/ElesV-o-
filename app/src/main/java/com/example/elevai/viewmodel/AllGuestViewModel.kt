@@ -10,7 +10,7 @@ import com.example.elevai.repository.GuestRepository
 
 class AllGuestViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val  repository = GuestRepository.getInstance(application.applicationContext)
+    private val  repository = GuestRepository(application.applicationContext)
 
     private val listAllGuests = MutableLiveData<List<GuestModel>>()
 
